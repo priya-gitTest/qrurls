@@ -1,6 +1,6 @@
 [build-system]
-requires = ["setuptools>=45", "wheel", "setuptools_scm>=6.2"]
-build-backend = "setuptools.build_meta"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [project]
 name = "qrurls"
@@ -12,6 +12,7 @@ license = {text = "MIT"}
 authors = [
     {name = "Priyanka O", email = "priyankaoe@gmail.com"}
 ]
+keywords = ["qr", "qrcode", "url", "shortener", "link"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: SE",
@@ -41,3 +42,7 @@ dev = [
 Homepage = "https://github.com/priya-gitTest/qrurls"
 Documentation = "https://github.com/priya-gitTest/qrurls#readme"
 Repository = "https://github.com/priya-gitTest/qrurls"
+Issues = "https://github.com/priya-gitTest/qrurls/issues"
+
+[tool.setuptools]
+packages = ["qrurls"]
