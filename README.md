@@ -2,6 +2,10 @@
 
 A Python package for generating QR codes and shortening URLs using open source services.
 
+<p align="center">
+  <img src="assets/qrurls_demo.png" alt="QRURLs Demo — Shortened URL with QR Code" width="400">
+</p>
+
 ## Features
 
 - Generate QR codes for any URL
