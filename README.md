@@ -21,6 +21,8 @@ A Python package for generating QR codes and shortening URLs using open source s
 
 ## Installation
 
+[![PyPI](https://img.shields.io/pypi/v/qrurls)](https://pypi.org/project/qrurls/)
+
 ```bash
 pip install qrurls
 ```
