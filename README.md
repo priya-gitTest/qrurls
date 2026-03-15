@@ -1,5 +1,10 @@
 # QRURLs
 
+[![CI](https://github.com/priya-gitTest/qrurls/actions/workflows/ci.yml/badge.svg)](https://github.com/priya-gitTest/qrurls/actions/workflows/ci.yml)
+[![PyPI](https://img.shields.io/pypi/v/qrurls)](https://pypi.org/project/qrurls/)
+[![Python](https://img.shields.io/pypi/pyversions/qrurls)](https://pypi.org/project/qrurls/)
+[![License](https://img.shields.io/github/license/priya-gitTest/qrurls)](LICENSE)
+
 A Python package for generating QR codes and shortening URLs using open source services.
 
 <p align="center">
@@ -20,8 +25,6 @@ A Python package for generating QR codes and shortening URLs using open source s
 - Simple, intuitive API
 
 ## Installation
-
-[![PyPI](https://img.shields.io/pypi/v/qrurls)](https://pypi.org/project/qrurls/)
 
 ```bash
 pip install qrurls
