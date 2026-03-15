@@ -1,4 +1,3 @@
-"""
 # QRURLs
 
 A Python package for generating QR codes and shortening URLs using open source services.
@@ -8,7 +7,10 @@ A Python package for generating QR codes and shortening URLs using open source s
 - Generate QR codes for any URL
 - Shorten URLs using multiple open source services (TinyURL, is.gd, v.gd)
 - Combine both: shorten URL and generate QR code in one step
-- Save QR codes as images or get them as objects
+- Command-line interface with ASCII QR display in terminal
+- Save QR codes as PNG or SVG
+- Interactive Jupyter notebook UI
+- Hosted web app via Streamlit (no install needed)
 - Simple, intuitive API
 
 ## Installation
@@ -31,13 +33,47 @@ from qrurls import QRURLs
 qrurls = QRURLs(service='tinyurl')
 
 # Shorten URL and generate QR code
-short_url, qr_image = qrurls.process(
+short_url, filepath = qrurls.process(
     'https://www.example.com/very/long/url',
     output_path='qr_code.png'
 )
 
 print(f"Shortened URL: {short_url}")
+print(f"QR code saved to: {filepath}")
 ```
+
+## Command-Line Interface
+
+```bash
+# Shorten URL + generate QR code (prints ASCII QR to terminal + saves PNG)
+qrurls https://example.com/some/long/url
+
+# Shorten only — prints the short URL
+qrurls https://example.com/some/long/url --shorten-only
+
+# QR code only — no URL shortening
+qrurls https://example.com --qr-only
+
+# Choose a service and output file
+qrurls https://example.com -s isgd -o my_qr.png
+
+# Customise QR appearance
+qrurls https://example.com --box-size 5 --border 2
+```
+
+## Web App (No Install Needed)
+
+Try QRURLs directly in your browser — no Python required:
+
+<!-- TODO: replace with your actual Streamlit Cloud URL after deploying -->
+**[Launch QRURLs Web App](https://qrurls.streamlit.app)**
+
+Or run it locally:
+```bash
+pip install qrurls[streamlit]
+streamlit run streamlit_app.py
+```
+
 ## Interactive Jupyter Notebook UI
 
 For a user-friendly interface, use the included Jupyter notebook:
@@ -45,19 +81,17 @@ For a user-friendly interface, use the included Jupyter notebook:
 ```bash
 # Install with notebook support
 pip install qrurls[notebook]
-# or with uv:
-uv pip install qrurls[notebook]
 
 # Launch Jupyter
 jupyter notebook qrurls_interactive.ipynb
 ```
 
 The notebook provides:
-- 🎨 Interactive widgets for all options
-- 📱 Live QR code preview
-- 💾 Automatic file saving with timestamps
-- 🔗 Clickable shortened URLs
-- 📊 Batch processing examples
+- Interactive widgets for all options
+- Live QR code preview
+- Automatic file saving with timestamps
+- Clickable shortened URLs
+- Batch processing examples
 
 ## Usage Examples
 
@@ -89,14 +123,14 @@ from qrurls import QRURLs
 qrurls = QRURLs(service='vgd', box_size=10, border=4)
 
 # Shorten and create QR code
-short_url, qr_img = qrurls.process(
+short_url, filepath = qrurls.process(
     'https://www.example.com',
     output_path='output_qr.png'
 )
 
 # Or use separately
 short_url = qrurls.shorten_only('https://example.com')
-qr_img = qrurls.qr_only('https://example.com', 'qr.png')
+filepath = qrurls.qr_only('https://example.com', 'qr.png')
 ```
 
 ## Available Services
@@ -107,10 +141,33 @@ qr_img = qrurls.qr_only('https://example.com', 'qr.png')
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.8+
 - qrcode[pil]
 - requests
 - Pillow
+
+## Future Ideas
+
+QR codes can encode more than just URLs — patient/specimen labels for labs, WiFi credentials, vCards, inventory tags, batch label generation from CSV, and more.
+
+If you'd like to see any of these features, please **star the repo** and [open an issue](https://github.com/priya-gitTest/qrurls/issues) describing your use case!
+
+## Citation
+
+If you use QRURLs in your research or project, please cite it:
+
+```bibtex
+@software{priyanka_o_qrurls,
+  author       = {Priyanka O},
+  title        = {QRURLs},
+  url          = {https://github.com/priya-gitTest/qrurls},
+  license      = {MIT}
+}
+```
+
+[![ORCID](https://img.shields.io/badge/ORCID-0000--0002--6844--6493-green)](https://orcid.org/0000-0002-6844-6493)
+
+GitHub will also show a "Cite this repository" button on the sidebar (powered by the `CITATION.cff` file).
 
 ## License
 
@@ -120,105 +177,21 @@ MIT License
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
----
-
-## Development & Publishing with uv (Recommended)
-
-**uv** is a blazingly fast Python package manager written in Rust. Here's how to use it:
-
-### Install uv
-```bash
-# macOS/Linux
-curl -LsSf https://astral.sh/uv/install.sh | sh
-
-# Windows
-powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
-
-# Or via pip
-pip install uv
-```
-
-### Development Workflow with uv
+## Development
 
 ```bash
-# Create a new project (if starting from scratch)
-uv init qrurls
+# Clone and install in dev mode
+git clone https://github.com/priya-gitTest/qrurls.git
 cd qrurls
-
-# Add dependencies
-uv add "qrcode[pil]>=7.3.1" "requests>=2.25.0" "Pillow>=8.0.0"
-
-# Add dev dependencies
-uv add --dev pytest pytest-cov black flake8
-
-# Create and activate virtual environment
-uv venv
-source .venv/bin/activate  # Linux/macOS
-# or
-.venv\Scripts\activate  # Windows
-
-# Install the package in editable mode
-uv pip install -e .
+uv pip install -e ".[dev]"
 
 # Run tests
-uv run pytest
+pytest
 
-# Format code
-uv run black .
+# Lint and format
+ruff check qrurls/ tests/
+ruff format qrurls/ tests/
 
-# Run linting
-uv run flake8
+# Type check
+mypy qrurls/
 ```
-
-### Building with uv
-
-```bash
-# Build the package (uv uses hatchling/setuptools automatically)
-uv build
-
-# This creates:
-# - dist/qrurls-0.1.0-py3-none-any.whl
-# - dist/qrurls-0.1.0.tar.gz
-```
-
-### Publishing to PyPI with uv
-
-```bash
-# Install twine if needed
-uv pip install twine
-
-# Upload to TestPyPI first (recommended)
-uv run twine upload --repository testpypi dist/*
-
-# Test installation from TestPyPI
-uv pip install --index-url https://test.pypi.org/simple/ qrurls
-
-# If everything works, upload to real PyPI
-uv run twine upload dist/*
-```
-
-### Why use uv?
-
-- ⚡ **10-100x faster** than pip
-- 🔒 **Deterministic** - Generates lockfiles automatically
-- 🎯 **Simple** - One tool for everything
-- 🦀 **Modern** - Written in Rust for performance
-- 🔄 **Compatible** - Works with existing pip/PyPI packages
-
-### Traditional Method (without uv)
-
-If you prefer traditional tools:
-
-```bash
-# Install build tools
-pip install build twine
-
-# Build
-python -m build
-
-# Upload to PyPI
-twine upload dist/*
-```
-
-Both methods work! uv is just faster and more modern.
-"""

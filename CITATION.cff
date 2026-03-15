@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+type: software
+title: "QRURLs"
+abstract: "A Python package for generating QR codes and shortening URLs using open source services."
+version: 0.1.0
+license: MIT
+repository-code: "https://github.com/priya-gitTest/qrurls"
+url: "https://github.com/priya-gitTest/qrurls"
+authors:
+  - family-names: "O"
+    given-names: "Priyanka"
+    email: "priyankaoe@gmail.com"
+    orcid: "https://orcid.org/0000-0002-6844-6493"
+keywords:
+  - qr-code
+  - url-shortener
+  - python
+  - qrcode
+date-released: "2025-10-02"
